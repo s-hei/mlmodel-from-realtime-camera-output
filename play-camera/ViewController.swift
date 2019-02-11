@@ -13,7 +13,7 @@ import AVKit
 class ViewController: UIViewController, FrameExtractorDelegate, AVCaptureVideoDataOutputSampleBufferDelegate {
 
     @IBOutlet weak var textLabel: UILabel!
-        
+    
     var frameExtractor: FrameExtractor!
     var mlmodel = MobileNet().model
     
@@ -29,9 +29,6 @@ class ViewController: UIViewController, FrameExtractorDelegate, AVCaptureVideoDa
     }
     
     func captured(sampleBuffer: CMSampleBuffer) {
-        //        imageView.image = image
-        
-        
         guard let pixelBuffer: CVPixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
         guard let model = try? VNCoreMLModel(for: mlmodel) else { return }
         let request = VNCoreMLRequest(model: model) { (finishedReq, err) in
